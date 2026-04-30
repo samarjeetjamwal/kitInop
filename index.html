@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Finest Deal Vault | AI Kitchen Revolution</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, 'BlinkMacSystemFont', 'Roboto', sans-serif;
+            background: radial-gradient(circle at 10% 30%, #faf7f2 0%, #f3efe7 100%);
+            color: #1a2a2f;
+        }
+
+        /* modern glassmorphism header */
+        header {
+            background: rgba(20, 30, 35, 0.92);
+            backdrop-filter: blur(12px);
+            color: #fffaec;
+            text-align: center;
+            padding: 2.4rem 1.5rem;
+            border-bottom: 1px solid rgba(255, 215, 150, 0.5);
+            box-shadow: 0 18px 35px -12px rgba(0, 0, 0, 0.2);
+            position: relative;
+            z-index: 2;
+        }
+
+        header h1 {
+            margin: 0;
+            letter-spacing: -0.3px;
+            font-size: 2.55rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #FFE6B3, #FFD58C, #FFE0AA);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        header p {
+            margin-top: 12px;
+            font-size: 1.05rem;
+            font-weight: 500;
+            opacity: 0.95;
+            color: #eef4fc;
+            letter-spacing: 0.3px;
+        }
+
+        .container {
+            padding: 2.5rem 1.8rem;
+            max-width: 1500px;
+            margin: 0 auto;
+        }
+
+        /* ENHANCED: full image container = image takes full width without cropping, max visibility */
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 35px;
+        }
+
+        .product-card {
+            background: #ffffff;
+            border-radius: 36px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.15, 0.85, 0.35, 1.05);
+            border: 1px solid #f1e5cf;
+            box-shadow: 0 18px 30px -12px rgba(0, 0, 0, 0.08);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 32px 44px -18px rgba(0, 0, 0, 0.22);
+            border-color: #ffcd94;
+        }
+
+        /* FULL IMAGE CONTAINER: increased size, object-fit cover fills container completely, no gaps */
+        .img-container {
+            width: 100%;
+            background: #fef5e6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+            min-height: 300px;
+            max-height: 380px;
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;   /* ensures full coverage of container, no white spaces, image fills area */
+            display: block;
+            transition: transform 0.5s ease-out, filter 0.3s;
+            transform: scale(1);
+        }
+
+        .product-card:hover img {
+            transform: scale(1.04);
+            filter: brightness(1.02) contrast(1.02);
+        }
+
+        .product-info {
+            padding: 1.4rem 1.3rem 1.8rem;
+            text-align: center;
+            background: white;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .product-info h3 {
+            margin: 8px 0 4px;
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: #1e2a2e;
+            letter-spacing: -0.2px;
+            line-height: 1.3;
+        }
+
+        .price {
+            font-size: 1.9rem;
+            font-weight: 800;
+            margin: 6px 0;
+            display: inline-block;
+            background: linear-gradient(145deg, #2b6c5e, #1f5a6e);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: -0.5px;
+        }
+
+        .tag {
+            display: inline-block;
+            background: #ffefcf;
+            color: #2b4b3c;
+            padding: 6px 18px;
+            border-radius: 80px;
+            font-size: 0.7rem;
+            font-weight: 800;
+            letter-spacing: 0.6px;
+            margin-bottom: 8px;
+            border-left: 3px solid #ffb347;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.02);
+            text-transform: uppercase;
+            align-self: center;
+        }
+
+        .badge-ai {
+            background: #1f2a36;
+            color: #FFDC9F;
+            border-left: 3px solid #6bcbef;
+        }
+
+        .buy-btn {
+            display: inline-block;
+            margin-top: 16px;
+            padding: 12px 28px;
+            background: #1e2a2e;
+            color: #fff6e6;
+            text-decoration: none;
+            border-radius: 80px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            transition: all 0.28s ease;
+            border: 1px solid rgba(255, 190, 80, 0.6);
+            letter-spacing: 0.6px;
+            backdrop-filter: blur(2px);
+        }
+
+        .buy-btn:hover {
+            background: #2c7a5e;
+            color: white;
+            border-color: #FFE2A4;
+            transform: scale(1.03);
+            box-shadow: 0 10px 22px -8px rgba(44, 122, 94, 0.4);
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem 1rem;
+            background: #121c20;
+            color: #cfdfea;
+            margin-top: 55px;
+            font-size: 0.85rem;
+            border-top: 2px solid #ffcd94;
+            font-weight: 400;
+        }
+
+        /* cool micro-interactions */
+        .product-card:hover .tag {
+            background: #ffe3b5;
+            border-left-color: #2c7a5e;
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                padding: 1.5rem;
+            }
+            header h1 {
+                font-size: 1.85rem;
+            }
+            .img-container {
+                min-height: 250px;
+                max-height: 290px;
+            }
+            .price {
+                font-size: 1.55rem;
+            }
+            .product-info h3 {
+                font-size: 1.2rem;
+            }
+        }
+
+        /* shimmer glow */
+        .product-card .price {
+            transition: all 0.2s;
+        }
+        .product-card:hover .price {
+            background: linear-gradient(145deg, #3f8d78, #2f788c);
+            -webkit-background-clip: text;
+            background-clip: text;
+        }
+
+        /* advanced kitchen vibes — subtle steam effect on cards hover */
+        .product-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 30% 20%, rgba(255,225,150,0.08) 0%, rgba(0,0,0,0) 70%);
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s;
+            border-radius: 36px;
+        }
+        .product-card {
+            position: relative;
+        }
+        .product-card:hover::after {
+            opacity: 1;
+        }
+
+        .rating-star {
+            color: #FFB347;
+            margin-top: 4px;
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>⚡ FINEST DEAL VAULT | AI KITCHEN REVOLUTION ⚡</h1>
+    <p>Smart Appliances · Next-Gen Cooktops · AI Ovens · Zero-Compromise Culinary Tech</p>
+</header>
+
+<div class="container">
+    <div class="products">
+
+        <!-- 1. Smart AI Convection Smart Oven -->
+        <div class="product-card">
+            <div class="img-container">
+                <img src="https://m.media-amazon.com/images/I/517CLswZfBL._SL1050_.jpg" alt="AI Smart Convection Oven">
+            </div>
+            <div class="product-info">
+                <span class="tag badge-ai">🤖 AI-POWERED</span>
+                <h3>Bosch AI Smart Oven</h3>
+                <div class="rating-star">★★★★★ 4.9 (2.1k+)</div>
+                <p class="price">₹46,950</p>
+                <a href="https://amzn.to/4t6pmg6" target="_blank" rel="noopener noreferrer" class="buy-btn">Shop AI Oven →</a>
+            </div>
+        </div>
+
+        <!-- 2. Smart Infrared Cooktop -->
+        <div class="product-card">
+            <div class="img-container">
+                <img src="https://m.media-amazon.com/images/I/51L6mkEfyqL._SL1024_.jpg" alt="Smart Induction Cooktop">
+            </div>
+            <div class="product-info">
+                <span class="tag">⚡ SMART ZONE</span>
+                <h3>Smart Infrared Cooktop</h3>
+                <div class="rating-star">★★★★☆ 4.8 (950+)</div>
+                <p class="price">₹7,400</p>
+                <a href="https://amzn.to/4eSGDpy" target="_blank" rel="noopener noreferrer" class="buy-btn">Explore Cooktop →</a>
+            </div>
+        </div>
+
+        <!-- 3. Air Fryer with Hypersteam and Air Fry technology -->
+        <div class="product-card">
+            <div class="img-container">
+                <img src="https://m.media-amazon.com/images/I/61Oibj6DH+L._SL1500_.jpg" alt="Dual Zone Air Fryer">
+            </div>
+            <div class="product-info">
+                <span class="tag">🔥 CRISPMASTER</span>
+                <h3>14-in-1 Multi Cooker Air Fryer</h3>
+                <div class="rating-star">★★★★★ 5.0 (3.4k+)</div>
+                <p class="price">₹25,999</p>
+                <a href="https://amzn.to/4tavh3H" target="_blank" rel="noopener noreferrer" class="buy-btn">Buy Air Fryer →</a>
+            </div>
+        </div>
+
+        <!-- 4. Automatic espresso machine with milk frother -->
+        <div class="product-card">
+            <div class="img-container">
+                <img src="https://m.media-amazon.com/images/I/81pB9FbHztL._AC_SL1500_.jpg" alt="Bean-to-Cup Espresso Machine">
+            </div>
+            <div class="product-info">
+                <span class="tag">☕ BARISTA EDITION</span>
+                <h3>LatteCraft Automatic Espresso</h3>
+                <div class="rating-star">★★★★★ 4.9 (1.8k)</div>
+                <p class="price">₹62,300</p>
+                <a href="https://amzn.to/3PeXAjH" target="_blank" rel="noopener noreferrer" class="buy-btn">Shop Now →</a>
+            </div>
+        </div>
+
+        <!-- 5. Multi-function roti & flatbread maker robot -->
+        <div class="product-card">
+            <div class="img-container">
+                <img src="https://m.media-amazon.com/images/I/71nTtvXSl5L._AC_SL1500_.jpg" alt="Automatic Roti Maker">
+            </div>
+            <div class="product-info">
+                <span class="tag badge-ai">🥙 AI ROTI TECH</span>
+                <h3>Smart RotiMaster Pro</h3>
+                <div class="rating-star">★★★★☆ 4.7 (672+)</div>
+                <p class="price">₹9,899</p>
+                <a href="https://amzn.to/3QwvgtD" target="_blank" rel="noopener noreferrer" class="buy-btn">View Deal →</a>
+            </div>
+        </div>
+
+        <!-- 6. Smart Refrigerator with inside camera & temperature zones -->
+        <div class="product-card">
+            <div class="img-container">
+                <img src="https://m.media-amazon.com/images/I/81OdeYI7lUL._AC_SL1500_.jpg" alt="Smart French Door Fridge">
+            </div>
+            <div class="product-info">
+                <span class="tag">🧊 AI FRESHZONE</span>
+                <h3>CoolSync Smart Fridge (WiFi)</h3>
+                <div class="rating-star">★★★★★ 4.8 (1.2k+)</div>
+                <p class="price">₹1,12,499</p>
+                <a href="https://amzn.to/4vYiowi" target="_blank" rel="noopener noreferrer" class="buy-btn">Explore Fridge →</a>
+            </div>
+        </div>
+
+        <!-- 7. High-speed blender with smart pre-sets & heating -->
+        <div class="product-card">
+            <div class="img-container">
+                <img src="https://m.media-amazon.com/images/I/81H8OwfMmoL._AC_SL1500_.jpg" alt="Professional Smart Blender">
+            </div>
+            <div class="product-info">
+                <span class="tag">🌀 VELOCITY PRO</span>
+                <h3>ThermoBlend+ Nutrient Blender</h3>
+                <div class="rating-star">★★★★★ 4.95 (2k+)</div>
+                <p class="price">₹27,850</p>
+                <a href="https://amzn.to/42Fqlcm" target="_blank" rel="noopener noreferrer" class="buy-btn">Shop Blender →</a>
+            </div>
+        </div>
+
+        <!-- 8. Smart Sous Vide & Slow Cooker Combo -->
+        <div class="product-card">
+            <div class="img-container">
+                <img src="https://m.media-amazon.com/images/I/71qZ-GqMQBL._AC_SL1500_.jpg" alt="Sous Vide Precision Cooker">
+            </div>
+            <div class="product-info">
+                <span class="tag">🍲 CHEF’S SECRET</span>
+                <h3>SousVide Chef 2.0 +App</h3>
+                <div class="rating-star">★★★★★ 4.85 (1.4k)</div>
+                <p class="price">₹12,449</p>
+                <a href="https://amzn.to/49hkSfu" target="_blank" rel="noopener noreferrer" class="buy-btn">Cook Like Pro →</a>
+            </div>
+        </div>
+
+        <!-- 9. Dishwasher with AI dirt sensing & 24h energy saving -->
+        <div class="product-card">
+            <div class="img-container">
+                <img src="https://m.media-amazon.com/images/I/81ASdBZivjL._AC_SL1500_.jpg" alt="Smart Dishwasher">
+            </div>
+            <div class="product-info">
+                <span class="tag">💧 ECO INTELLIGENT</span>
+                <h3>AquaSense AI Dishwasher</h3>
+                <div class="rating-star">★★★★☆ 4.7 (890)</div>
+                <p class="price">₹45,990</p>
+                <a href="https://amzn.to/4ejUKUJ" target="_blank" rel="noopener noreferrer" class="buy-btn">See Deal →</a>
+            </div>
+        </div>
+
+        <!-- 10. Next-gen microwave with inverter technology & griller -->
+        <div class="product-card">
+            <div class="img-container">
+                <img src="https://m.media-amazon.com/images/I/81HVnJ7ZRBL._AC_SL1500_.jpg" alt="Inverter Microwave Oven">
+            </div>
+            <div class="product-info">
+                <span class="tag">⚡ MICRO-WAVE PRO</span>
+                <h3>SpeedWave Grill+ Convection</h3>
+                <div class="rating-star">★★★★★ 4.8 (1.1k+)</div>
+                <p class="price">₹26,499</p>
+                <a href="https://amzn.to/42pIKdn" target="_blank" rel="noopener noreferrer" class="buy-btn">Shop Microwave →</a>
+            </div>
+        </div>
+
+        <!-- 11. Electric Kettle with 5 temperature presets (smart gooseneck) -->
+        <div class="product-card">
+            <div class="img-container">
+                <img src="https://m.media-amazon.com/images/I/71eZ+QS1eXL._AC_SL1500_.jpg" alt="Smart Pour-Over Kettle">
+            </div>
+            <div class="product-info">
+                <span class="tag">🍵 BREW PERFECT</span>
+                <h3>Precision Temp Kettle</h3>
+                <div class="rating-star">★★★★★ 4.9 (2.3k)</div>
+                <p class="price">₹5,499</p>
+                <a href="https://amzn.to/4eNnJ3u" target="_blank" rel="noopener noreferrer" class="buy-btn">Grab Offer →</a>
+            </div>
+        </div>
+
+        <!-- 12. Ultimate Stand Mixer & Planetary mixing smart sense -->
+        <div class="product-card">
+            <div class="img-container">
+                <img src="https://m.media-amazon.com/images/I/81z3VzL9LTL._AC_SL1500_.jpg" alt="Stand Mixer with AI scale">
+            </div>
+            <div class="product-info">
+                <span class="tag badge-ai">🧁 ARTISAN AI</span>
+                <h3>Patissier Smart Stand Mixer</h3>
+                <div class="rating-star">★★★★★ 4.95 (1.5k)</div>
+                <p class="price">₹38,250</p>
+                <a href="https://amzn.to/4mXcOWV" target="_blank" rel="noopener noreferrer" class="buy-btn">Shop Mixer →</a>
+            </div>
+        </div>
+
+        <!-- BONUS 13: Smart Vacuum Sealer & Food Preservation System (advanced kitchen) -->
+        <div class="product-card">
+            <div class="img-container">
+                <img src="https://m.media-amazon.com/images/I/71PcV8jcpPL._AC_SL1500_.jpg" alt="Automatic Vacuum Sealer">
+            </div>
+            <div class="product-info">
+                <span class="tag">🧊 FRESH LOCK+</span>
+                <h3>AutoSeal Vacuum Sealer</h3>
+                <div class="rating-star">★★★★☆ 4.75 (560+)</div>
+                <p class="price">₹7,999</p>
+                <a href="https://amzn.to/4tgdMzm" target="_blank" rel="noopener noreferrer" class="buy-btn">Order Now →</a>
+            </div>
+        </div>
+
+        <!-- 14: smart kitchen scale with nutritional AI tracking -->
+        <div class="product-card">
+            <div class="img-container">
+                <img src="https://m.media-amazon.com/images/I/71M+rrCipKL._AC_SL1500_.jpg" alt="Smart Nutrition Scale">
+            </div>
+            <div class="product-info">
+                <span class="tag">📊 MACRO AI</span>
+                <h3>NutriSense Bluetooth Scale</h3>
+                <div class="rating-star">★★★★☆ 4.6 (920+)</div>
+                <p class="price">₹3,999</p>
+                <a href="https://amzn.to/48tkb2C" target="_blank" rel="noopener noreferrer" class="buy-btn">Check Deal →</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer>
+    ✦ FINEST DEAL VAULT — Kitchen Intelligence Redefined ✦ <br>
+    © 2026 FindealVault.online | Affiliate Disclosure: We earn commissions from qualifying purchases. | AI-powered smart kitchen picks
+</footer>
+
+</body>
+</html>
